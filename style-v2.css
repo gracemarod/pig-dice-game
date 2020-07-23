@@ -51,6 +51,12 @@
     left:561px;
     top:20px;
 }
+.dice{
+    position: absolute;
+    height: 100px;
+    left: 40%;
+    margin-top: 10px;
+}
 .players{
     display:flex;
     justify-content: center;
