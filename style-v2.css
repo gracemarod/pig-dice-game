@@ -3,10 +3,18 @@
     --dark-brown:#734D3F;
 }
 
+.wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
 .table-background {
+    display: flex;
     position: relative;
     /* need to fix this */
     margin: 8vw 10vw;
+    height: 400px;
+    max-height: 450px;
 }
 .table-child{
     position: absolute;
@@ -94,11 +102,9 @@
     margin: 20px auto;
 }
 
-.btn-roll,.btn-hold  {
-    position: absolute;
+.btn-roll, .btn-hold, .btn-new  {
     width: 200px;
     left: 50%;
-    transform: translateX(-50%);
     background: none;
     border: none;
     font-family: Lato;
@@ -107,9 +113,15 @@
     cursor: pointer;
     font-weight: 300;
     transition: background-color 0.3s, color 0.3s;
+    position: absolute;
+    transform: translateX(-50%);
 }
 
+.btn-new-container{
+    display:flex;
+    align-content:center;
 
+}
 .btn-roll { top: 300px;}
 .btn-hold { top: 360px;}
-.btn-new { top: 45px;}
+.btn-new { top: 500px;}

@@ -19,16 +19,19 @@ const diceSide6 = './assets/images/dice-6.png';
 
 //global variables 
 const buttonRoll = document.getElementById('btn-roll');
-
+const buttonHold = document.getElementById('btn-hold');
 //can make this into objects
-let player1CurrentScore = 0;
-let player2CurrentScore = 0;
+const player1 = {
+    currentScore :0,
+    holdingScore: 0,
+    turn: false
+}
 
-let player1HoldingScore = 0;
-let player2HoldingScore = 0;
-
-let player1Turn = false;
-let player2Turn = false;
+const player2 = {
+    currentScore: 0,
+    holdingScore: 0,
+    turn: false
+}
 
 let gameStart = false;
 let diceThrow = 0;
@@ -59,33 +62,54 @@ buttonRoll.addEventListener('click', function(event){
             document.querySelector(".dice").src=diceSide1;
     }
     if(!gameStart) {
-        player1Turn = true;
+        player1.turn = true;
         gameStart = true;
     }
 
-    if(player1Turn && diceThrow !== 1){
+    if(player1.turn && diceThrow !== 1){
         console.log('Its player 1s turn');
-        player1CurrentScore += diceThrow;
-    }else if(player1Turn && diceThrow === 1){
+        player1.currentScore += diceThrow;
+    }else if(player1.turn && diceThrow === 1){
         console.log('Player 1 throws a 1 and loses hold. Its players 2 turn');
-        player1CurrentScore = 0;
-        player2Turn = true;
-        player1Turn = false;
+        player1.currentScore = 0;
+        player2.turn = true;
+        player1.turn = false;
         diceThrow = 0;
-    } else if(player2Turn && diceThrow !== 1){
+    } else if(player2.turn && diceThrow !== 1){
         console.log('Its player 2s turn');
-        player2CurrentScore += diceThrow;
+        player2.currentScore += diceThrow;
     }else{
         console.log('Player 2 throws a 1 and loses hold. Its players 2 turn');
-        player2CurrentScore = 0;
-        player2Turn = false;
-        player1Turn = true;
+        player2.currentScore = 0;
+        player2.turn = false;
+        player1.turn = true;
         diceThrow = 0;
     }
-    document.getElementById('current-0').innerText = player1CurrentScore;
-    document.getElementById('current-1').innerText = player2CurrentScore;
+    document.getElementById('current-0').innerText = player1.currentScore;
+    document.getElementById('current-1').innerText = player2.currentScore;
 
 });
+
+
+buttonHold.addEventListener('click',function(event) {
+    if(player1.turn){
+       console.log("Player 1 HOLD");
+       player1.holdingScore += player1.currentScore;
+       player1.currentScore = 0;
+       document.getElementById('current-0').innerText = player1.currentScore;
+       player1.turn = false;
+       player2.turn = true; 
+    }else{
+      console.log("Player 2 HOLD");
+       player2.holdingScore += player2.currentScore;
+       player2.currentScore = 0;
+       document.getElementById('current-1').innerText = player2.currentScore;
+       player2.turn = false;
+       player1.turn = true; 
+    }
+    document.getElementById('score-0').innerText = player1.holdingScore;
+    document.getElementById('score-1').innerText = player2.holdingScore;
+})
 
 //random dice throw selector
 function getRandomIntInclusive(min,max){
