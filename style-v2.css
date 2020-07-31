@@ -1,5 +1,6 @@
 :root{
-    --light-green:#108d02;
+    --light-green:#1dc407;
+    --dark-green:#108d02;
     --dark-brown:#734D3F;
 }
 
@@ -20,6 +21,7 @@
     position: absolute;
     top: 0;
 }
+
 .table-border-left, .table-border-right{
     background-color:var(--dark-brown);
     height: 450px;
@@ -39,7 +41,7 @@
     left:540px;
 }
 .table-left, .table-right{
-    background-color:var(--light-green);
+    background-color:var(--dark-green);
     height: 410px;
     width: 410px;
     border-radius: 50%;
@@ -49,7 +51,7 @@
     top: 20px;
 }
 .table-rect{
-    background-color:var(--light-green);
+    background-color:var(--dark-green);
     height: 410px;
     width: 545px;
     left: 230px;
@@ -59,28 +61,39 @@
     left:561px;
     top:20px;
 }
+
 .dice{
     position: absolute;
     height: 100px;
     left: 40%;
     margin-top: 10px;
 }
+
+/**********************************************
+*** PLAYERS
+**********************************************/
+
 .players{
     display:flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
 }
-.player-0-panel,
-.player-1-panel {
+.player-1-panel,
+.player-2-panel {
     margin: auto;
     text-align: center;
-}
-.player-0-panel {
-    margin-right: 100px;
+    width: 50%;
+    float: left;
+    height: 310px;
 }
 .player-1-panel {
-    margin-left: 100px;
+    padding: 50px 100px 50px 0px;
+}
+.player-2-panel {
+    padding: 50px 0px 50px 100px;
+}
+.active{
+    background-color: var(--light-green);
 }
 .player-name{
     font-size: 30px;
@@ -120,8 +133,9 @@
 .btn-new-container{
     display:flex;
     align-content:center;
-
 }
+
 .btn-roll { top: 300px;}
 .btn-hold { top: 360px;}
 .btn-new { top: 500px;}
+

@@ -17,9 +17,10 @@ const diceSide5 = './assets/images/dice-5.png';
 const diceSide6 = './assets/images/dice-6.png';
 
 
-//global variables 
+//global variables from html elements
 const buttonRoll = document.getElementById('btn-roll');
 const buttonHold = document.getElementById('btn-hold');
+
 //can make this into objects
 const player1 = {
     currentScore :0,
@@ -65,7 +66,7 @@ buttonRoll.addEventListener('click', function(event){
         player1.turn = true;
         gameStart = true;
     }
-
+    console.log("Panel 0:", );
     if(player1.turn && diceThrow !== 1){
         console.log('Its player 1s turn');
         player1.currentScore += diceThrow;
@@ -75,6 +76,7 @@ buttonRoll.addEventListener('click', function(event){
         player2.turn = true;
         player1.turn = false;
         diceThrow = 0;
+        
     } else if(player2.turn && diceThrow !== 1){
         console.log('Its player 2s turn');
         player2.currentScore += diceThrow;
@@ -87,7 +89,7 @@ buttonRoll.addEventListener('click', function(event){
     }
     document.getElementById('current-0').innerText = player1.currentScore;
     document.getElementById('current-1').innerText = player2.currentScore;
-
+    changePlayerPanelHighlight(player1.turn, player2.turn);
 });
 
 
@@ -109,6 +111,7 @@ buttonHold.addEventListener('click',function(event) {
     }
     document.getElementById('score-0').innerText = player1.holdingScore;
     document.getElementById('score-1').innerText = player2.holdingScore;
+    changePlayerPanelHighlight(player1.turn, player2.turn);
 })
 
 //random dice throw selector
@@ -119,18 +122,22 @@ function getRandomIntInclusive(min,max){
     return Math.floor(Math.random() * (max - min) +1) + min;
 }
 
-// function playerCurrentScore( whichPlayer,playerTurn, versusPlayerTurn, diceThrow){
-//     let playerCurrent = 0;
+function changePlayerPanelHighlight(player1turn, player2turn){
+    const player1PanelClasses = document.querySelector('.player-1-panel').classList;
+    const player2PanelClasses = document.querySelector('.player-2-panel').classList;
+    const tableLeftClasses = document.querySelector('.table-left').classList;
+    const tableRightClasses = document.querySelector('.table-right').classList;
 
-//     if(playerTurn && diceThrow !== 1){
-//         console.log('Its' + whichPlayer +'turn');
-//         playerCurrent += diceThrow;
-//     }else if(playerTurn && diceThrow === 1){
-//         console.log(whichPlayer + 'throws a 1 and loses hold.');
-//         playerCurrent = 0;
-//         versusPlayerTurn = true;
-//         playerTurn = false;
-//         diceThrow = 0;
-//     }
-//     return playerCurrent;
-// }
+    if (player2turn){
+        player1PanelClasses.remove('active');
+        player2PanelClasses.add('active');
+        tableLeftClasses.remove('active');
+        tableRightClasses.add('active');
+
+    }else{
+        player2PanelClasses.remove('active');
+        player1PanelClasses.add('active');
+        tableRightClasses.remove('active');
+        tableLeftClasses.add('active');
+    }
+}
