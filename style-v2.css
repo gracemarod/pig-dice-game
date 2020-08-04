@@ -25,7 +25,6 @@
 .table-background {
     display: flex;
     position: relative;
-    /* need to fix this */
     margin: 2vw 10vw;
     height: 400px;
     max-height: 450px;
