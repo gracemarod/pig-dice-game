@@ -1,7 +1,7 @@
 
-#Pig Card Game
+# Pig Card Game
 
-##Description
+## Description
 My version of Pig Card Game
 
 Game Rules:
@@ -11,11 +11,11 @@ Game Rules:
     The player can choose to 'Hold', which means that their current score gets added to their global score.
     After that, it's the next player's turn. The first player to reach 100 points on GLOBAL score wins.
 
-##Installation
+## Installation
 
 ```bash
     git clone https://github.com/gracemarod/pig-dice-game.git
     python -m SimpleHTTPServer
 ```
 
-##Or you could check the project in [my Codepen](https://codepen.io/gracemarod/pen/QWNWypR).
+## Or you could check the project in [my Codepen](https://codepen.io/gracemarod/pen/QWNWypR).
