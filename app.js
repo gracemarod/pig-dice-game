@@ -20,26 +20,27 @@ const diceSide6 = './assets/images/dice-6.png';
 //global variables from html elements
 const buttonRoll = document.getElementById('btn-roll');
 const buttonHold = document.getElementById('btn-hold');
-
+const buttonNew = document.getElementById('btn-new');
 //can make this into objects
-const player1 = {
+
+
+var player1 = {
     currentScore :0,
     holdingScore: 0,
     turn: false
 }
 
-const player2 = {
+var player2 = {
     currentScore: 0,
     holdingScore: 0,
     turn: false
 }
 
-let gameStart = false;
-let diceThrow = 0;
+var gameStart = false;
+var diceThrow = 0;
 
 buttonRoll.addEventListener('click', function(event){
     diceThrow = getRandomIntInclusive(0,6);
-    console.log("Dice throw: ", diceThrow);
     switch(diceThrow){        
         case 1:
             document.querySelector(".dice").src=diceSide1;
@@ -66,53 +67,71 @@ buttonRoll.addEventListener('click', function(event){
         player1.turn = true;
         gameStart = true;
     }
-    console.log("Panel 0:", );
-    if(player1.turn && diceThrow !== 1){
-        console.log('Its player 1s turn');
+
+    if(player1.turn && diceThrow !== 1 && (player1.holdingScore < 100)){
         player1.currentScore += diceThrow;
-    }else if(player1.turn && diceThrow === 1){
-        console.log('Player 1 throws a 1 and loses hold. Its players 2 turn');
+    }else if(player1.turn && diceThrow === 1 && (player1.holdingScore < 100)){
         player1.currentScore = 0;
         player2.turn = true;
         player1.turn = false;
         diceThrow = 0;
-        
-    } else if(player2.turn && diceThrow !== 1){
-        console.log('Its player 2s turn');
+    } else if(player2.turn && diceThrow !== 1 && (player2.holdingScore < 100)){
         player2.currentScore += diceThrow;
     }else{
-        console.log('Player 2 throws a 1 and loses hold. Its players 2 turn');
         player2.currentScore = 0;
         player2.turn = false;
         player1.turn = true;
         diceThrow = 0;
     }
-    document.getElementById('current-0').innerText = player1.currentScore;
-    document.getElementById('current-1').innerText = player2.currentScore;
+    document.getElementById('current-1').innerText = player1.currentScore;
+    document.getElementById('current-2').innerText = player2.currentScore;
     changePlayerPanelHighlight(player1.turn, player2.turn);
 });
 
 
 buttonHold.addEventListener('click',function(event) {
-    if(player1.turn){
-       console.log("Player 1 HOLD");
+    if(player1.turn && (player1.holdingScore + player1.currentScore < 100)){
        player1.holdingScore += player1.currentScore;
        player1.currentScore = 0;
-       document.getElementById('current-0').innerText = player1.currentScore;
+       document.getElementById('current-1').innerText = player1.currentScore;
        player1.turn = false;
        player2.turn = true; 
-    }else{
-      console.log("Player 2 HOLD");
+    }else if (player2.turn && (player2.holdingScore + player2.currentScore < 100)){
        player2.holdingScore += player2.currentScore;
        player2.currentScore = 0;
-       document.getElementById('current-1').innerText = player2.currentScore;
+       document.getElementById('current-2').innerText = player2.currentScore;
        player2.turn = false;
        player1.turn = true; 
+    }else if(player1.turn && (player1.holdingScore + player1.currentScore >= 100)){
+        player1.holdingScore += player1.currentScore;
+        player1.currentScore = 0;
+        document.getElementById('name-1').style.color = 'red';
+    }else{
+        player2.holdingScore += player2.currentScore;
+        player2.currentScore = 0;
+        document.getElementById('name-2').style.color = 'red';
     }
-    document.getElementById('score-0').innerText = player1.holdingScore;
-    document.getElementById('score-1').innerText = player2.holdingScore;
+    document.getElementById('score-1').innerText = player1.holdingScore;
+    document.getElementById('score-2').innerText = player2.holdingScore;
     changePlayerPanelHighlight(player1.turn, player2.turn);
-})
+});
+
+
+buttonNew.addEventListener('click',function(event) {
+    player1 = { currentScore: 0, holdingScore: 0, turn:false}
+    player2 = { currentScore: 0, holdingScore: 0, turn:false}
+    gameStart = false;
+
+    //restart everything
+    document.getElementById('current-1').innerText = player1.currentScore;
+    document.getElementById('current-2').innerText = player2.currentScore;
+    document.getElementById('score-1').innerText = player1.holdingScore;
+    document.getElementById('score-2').innerText = player2.holdingScore;
+    changePlayerPanelHighlight(player1.turn, player2.turn);
+    document.getElementById('name-1').style.color = 'black';
+    document.getElementById('name-2').style.color = 'black';
+    diceThrow = 0;
+});
 
 //random dice throw selector
 function getRandomIntInclusive(min,max){
@@ -141,3 +160,4 @@ function changePlayerPanelHighlight(player1turn, player2turn){
         tableLeftClasses.add('active');
     }
 }
+
