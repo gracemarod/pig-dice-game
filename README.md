@@ -1,8 +1,8 @@
 
 # Pig Card Game
+My version of Pig Card Game
 
 ## Description
-My version of Pig Card Game
 
 Game Rules:
 - The game has 2 players, playing in rounds.
@@ -11,6 +11,7 @@ Game Rules:
 - The player can choose to 'Hold', which means that their current score gets added to their global score.
 - After that, it's the next player's turn. The first player to reach 100 points on GLOBAL score wins.
 
+
 ## Installation
 
 ```bash
@@ -18,4 +19,4 @@ Game Rules:
     python -m SimpleHTTPServer
 ```
 
-## Or you could check the project in [my Codepen](https://codepen.io/gracemarod/pen/QWNWypR).
+## Or you can check the project in [my Codepen](https://codepen.io/gracemarod/pen/QWNWypR).
